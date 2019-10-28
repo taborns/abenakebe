@@ -1,0 +1,158 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.MuiTableCell-root {
+  padding: 8px !important;
+}
+
+.no-padding-field { 
+  padding: 0px !important;
+}
+
+.back-to-top {
+  font-size: 45px;
+}
+
+.news-loading{
+  font-size: 100px;
+}
+
+.text-joke-line{
+  margin-bottom: 8px !important;
+  font-weight: 620 !important;
+}
+
+.text-joke {
+  padding: 0;
+  box-shadow: none;
+}
+
+.my-navbar-brand {
+  color: #e37f2b !important;
+  font-weight: bold;
+}
+
+.my-card-header .MuiCardHeader-title{
+  text-align: left;
+  color: #e37b21;
+  font-weight: bolder;
+  font-size: 18px;
+  padding: 0;
+
+}
+
+.joke-image{
+  width: 100%;
+}
+
+span.share-like-button {
+  font-weight: bold;
+}
+
+.bg-light {
+  background-color: #f8f9fa!important;
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 1rem;
+}
+
+.navbar-nav {
+  list-style:none;
+}
+.navbar-brand {
+  display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+
+.navbar-light .navbar-toggler {
+  color: rgba(0,0,0,.5);
+  border-color: rgba(0,0,0,.1);
+}
+
+.collapse:not(.show) {
+  display: none;
+}
+
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.ml-auto, .mx-auto {
+  margin-left: auto!important;
+}
+
+.navbar-toggler {
+  padding: .25rem .75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+.navbar-light .navbar-toggler {
+  color: rgba(0,0,0,.5);
+  border-color: rgba(0,0,0,.1);
+}
+
+
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0,0,0,.5);
+}
+
+.navbar-nav .nav-link {
+  padding-right: 0;
+  padding-left: 0;
+}
+.nav-link {
+  display: block;
+  padding: .5rem 1rem;
+}
+
+.MuiTab-textColorPrimary.Mui-selected {
+  color: #e37b21 !important;
+}
