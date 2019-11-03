@@ -18,6 +18,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Divider } from '@material-ui/core';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { width } from '@material-ui/system';
+import Emoji from 'react-emoji-render';
+
 
 let moment = require('moment')
 const useStyles = makeStyles(theme => ({
@@ -52,7 +54,7 @@ export default function ImageCard(props) {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={`my-card ${classes.card}`}>
       {/* <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}  src="/avatar.jpg" />
@@ -81,14 +83,14 @@ export default function ImageCard(props) {
 
       <CardContent>
           <img className='joke-image' src={props.imageJoke.image} />
-          <Typography gutterBottom variant='h6' component="h2">
-          {props.imageJoke.caption}
+          <Typography className='image-caption' gutterBottom variant='h6' component="h2">
+           <Emoji text={props.imageJoke.caption} />
           </Typography>
         </CardContent>
      
       
 
-      <CardActions disableSpacing>
+      <CardActions className='my-actions' disableSpacing>
       <span className='share-like-button'>
       <IconButton aria-label="add to favorites">
         <ThumbUpIcon />

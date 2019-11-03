@@ -156,3 +156,27 @@ span.share-like-button {
 .MuiTab-textColorPrimary.Mui-selected {
   color: #e37b21 !important;
 }
+
+.image-caption {
+  color: #e37b21;
+  /* background: #e37b21; */
+  font-weight: bolder;
+  _box-shadow: -1px 1px 7px 0px grey;
+  margin-top: 19px !important;
+}
+
+.my-actions {
+  box-shadow: 0px 0px 1px 1px grey;
+  _background: #bfb7b7;
+  color: #e37b21;
+  padding: 2px !important;
+}
+
+.my-card {
+  box-shadow: 0px 2px 6px 0px grey !important;
+  
+}
+
+.MuiAppBar-colorDefault {
+  _background-color: transparent !important;
+}

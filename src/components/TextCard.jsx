@@ -16,6 +16,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Paper, Divider } from '@material-ui/core';
+import Emoji from 'react-emoji-render';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 let moment = require('moment')
 const useStyles = makeStyles(theme => ({
@@ -50,7 +52,7 @@ export default function TextCard(props) {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={`my-card ${classes.card}`}>
       <CardHeader
         className='my-card-header'
         avatar={
@@ -64,19 +66,19 @@ export default function TextCard(props) {
       <CardContent>
               {props.textJoke.content.split('\n').map( chunk => (
                   <Typography color='text-primary' className='text-joke-line' component="p"  align='left' >
-                      {chunk}
+                      <Emoji text={chunk} />
                   </Typography>
               ))}
 
 
       </CardContent>
       
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+      <CardActions className='my-actions' disableSpacing>
+        <IconButton className='floating-icon' aria-label="add to favorites">
+          <ThumbUpIcon />
         </IconButton>
         22
-        <IconButton aria-label="share">
+        <IconButton className='floating-icon' aria-label="share">
           <ShareIcon />
         </IconButton>
         
