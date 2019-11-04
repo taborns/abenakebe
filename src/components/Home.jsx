@@ -6,6 +6,8 @@ import { BackTop, Icon } from 'antd';
 import Menu from 'rc-menu';
 import MyMenu from './MyMenu';
 
+import moment from 'moment' 
+
 export default class Home extends React.Component {
 
     constructor(props) {
@@ -26,9 +28,12 @@ export default class Home extends React.Component {
             memeJoke_count : 0,
             memeJoke_loading : false,
 
+            allJokes : [],
+            allJoke_count : 0,
+            allJoke_loading : false,
+
             current : 1,
-            leagues : [],
-            predictions : []
+
         }
 
     }
@@ -46,7 +51,12 @@ export default class Home extends React.Component {
                     imageJoke_count : response.count,
                     imageJoke_loading : false
                 })
-            }, err => this.setState({imageJoke_loading : false}))
+                this.retrieveAllJokes()
+            }, err => {
+                this.setState({imageJoke_loading : false, imageJokes : []})
+                this.retrieveAllJokes()
+
+            })
 
     }
 
@@ -63,7 +73,12 @@ export default class Home extends React.Component {
                     memeJoke_count : response.count,
                     memeJoke_loading : false
                 })
-            }, err => this.setState({memeJoke_loading : false}))
+                this.retrieveAllJokes()
+
+            }, err => {
+                this.setState({memeJoke_loading : false, memeJokes : []}) 
+                this.retrieveAllJokes()
+            })
 
     }
 
@@ -80,16 +95,60 @@ export default class Home extends React.Component {
                     textJoke_count : response.count,
                     textJoke_loading : false
                 })
-            }, err => this.setState({textJoke_loading : false}))
+                this.retrieveAllJokes()
+
+            }, err => {
+                this.setState({textJoke_loading : false, textJokes : []}) 
+                this.retrieveAllJokes()
+            })
 
     }
 
+    retrieveAllJokes = () => {
+        this.setState({
+            allJokes : this.sortAllJokes(),
+        })
+    }
 
+    sortAllJokes = () => {
+        let all_jokes = []
+
+        this.state.imageJokes.forEach( joke => {
+            joke.type = 'image'
+            all_jokes.push( joke )
+        })
+
+        this.state.memeJokes.forEach( joke => {
+            joke.type = 'meme'
+            all_jokes.push( joke )
+        })
+
+        this.state.textJokes.forEach( joke => {
+            joke.type = 'text'
+            all_jokes.push( joke )
+        })
+
+
+        all_jokes.sort( (jok1, jok2) =>{
+            return moment(jok2.created_at).diff(jok1.created_at)
+        })
+
+        return all_jokes
+
+
+
+
+    }
+
+    retrieveAll = (page) => {
+        this.retrieveImageJoke(page)
+        this.retrieveMemeJokes(page)
+        this.retrieveTextJokes(page)
+        this.retrieveAllJokes(page)
+    }
 
     componentDidMount() {
-        this.retrieveImageJoke(1)
-        this.retrieveMemeJokes(1)
-        this.retrieveTextJokes(1)
+        this.retrieveAll(1)
     }
 
     render() {
@@ -102,6 +161,8 @@ export default class Home extends React.Component {
                 onRetrieveImageJokes = {this.retrieveImageJoke}
                 onRetrieveMemeJokes = {this.retrieveMemeJokes}
                 onRetrieveTextJokes = {this.retrieveTextJokes}
+                onRetrieveAllJokes = {this.retrieveAllJokes}
+                onAll = {this.retrieveAll}
             />
             <BackTop>
                 <Icon className='back-to-top' type="up-circle" theme="filled" />

@@ -180,3 +180,25 @@ span.share-like-button {
 .MuiAppBar-colorDefault {
   _background-color: transparent !important;
 }
+
+.like-counter {
+    background: #e37b21;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 7px 1px #b7b1ac;
+    background-color: #e37b21;
+    min-width: 38px;
+    display: inline-block;
+}
+
+.my-share-btn {
+  background: #e37b21;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 7px 1px #b7b1ac;
+  background-color: #e37b21;
+  min-width: 38px;
+  display: inline-block;
+}

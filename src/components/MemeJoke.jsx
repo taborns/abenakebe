@@ -18,12 +18,12 @@ export default class MemeJoke extends React.Component{
     }
 
     render() {
-        let news_count = this.props.news_count
+        let joke_count = this.props.memeJoke_count
         const antIcon = <Icon  type="loading" style={{ fontSize: 54 }} spin />;
         console.log('newsloading', this.props)
         return (
             <Box>
-                    <Spin  indicator={antIcon} spinning={this.props.imageJoke_loading}>
+                    <Spin  indicator={antIcon} spinning={this.props.memeJoke_loading}>
 
                         { this.props.memeJokes.length > 0 && this.props.memeJokes.map( joke => (<Grid
                             item
@@ -32,12 +32,12 @@ export default class MemeJoke extends React.Component{
                             alignItems="center"
                             lg={10}
                             >
-                                <ImageCard imageJoke={joke} />
+                                <ImageCard type='meme' imageJoke={joke} />
                             </Grid>)
                         ) || <Empty description='No Memes for now. Please try again later' />}
                     </Spin>
 
-                <Pagination pageSize={5} onChange={this.handlePagination} defaultCurrent={1} total={news_count} />
+                <Pagination pageSize={10} onChange={this.handlePagination} defaultCurrent={1} total={joke_count} />
                 </Box>
         
         )

@@ -41,5 +41,25 @@ export default class Api {
 
   }
 
+    
+  static postData(method, data) {
+
+    let url = API_BASE_URL + method + '/'
+
+    return new Promise( function( resolve, reject) {
+
+        axios
+          .post(url, data)
+          .then( response => {
+            resolve(response.data)
+          })
+          .catch( error => {
+            reject( error.response.data )
+          })
+        
+
+    })
+  }
+
 }
 

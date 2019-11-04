@@ -19,6 +19,7 @@ import { Divider } from '@material-ui/core';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { width } from '@material-ui/system';
 import Emoji from 'react-emoji-render';
+import Api from '../api/api';
 
 
 let moment = require('moment')
@@ -45,13 +46,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+
+
 export default function ImageCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [likeCount, setLikeCount] = React.useState(props.imageJoke.like_count);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const image_url = props.abs && `${Api.API_BASE_URL}${props.imageJoke.image}` || props.imageJoke.image
+  
+  let performLike = () => {
+
+    Api.postData(`/like/${props.type}`, {
+      joke : props.imageJoke.id
+    })
+    .then(response => setLikeCount(response.like_count))
+  
+  }
+
 
   return (
     <Card className={`my-card ${classes.card}`}>
@@ -82,7 +95,7 @@ export default function ImageCard(props) {
       
 
       <CardContent>
-          <img className='joke-image' src={props.imageJoke.image} />
+          <img className='joke-image' src={image_url} />
           <Typography className='image-caption' gutterBottom variant='h6' component="h2">
            <Emoji text={props.imageJoke.caption} />
           </Typography>
@@ -92,16 +105,17 @@ export default function ImageCard(props) {
 
       <CardActions className='my-actions' disableSpacing>
       <span className='share-like-button'>
-      <IconButton aria-label="add to favorites">
+      <IconButton onClick={performLike} aria-label="add to favorites">
         <ThumbUpIcon />
       </IconButton>
-      22
+      <span className='like-counter'>{likeCount}</span>
       </span>
 
       <span className='share-like-button'>
       <IconButton aria-label="share">
         <ShareIcon />
       </IconButton>
+
       </span>
 
       </CardActions>

@@ -21,6 +21,7 @@ import TextFieldsIcon from '@material-ui/icons/TextFields';
 import FilterIcon from '@material-ui/icons/Filter';
 import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
 import FaceIcon from '@material-ui/icons/Face';
+import AllJoke from './AllJoke';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -90,7 +91,7 @@ export default function MainApp(props) {
       </AppBar>
       
         <TabPanel value={value} index={0} dir={theme.direction}>
-            <ImageJoke {...props} />
+            <AllJoke {...props} />
         </TabPanel>
 
         <TabPanel value={value} index={1} dir={theme.direction}>

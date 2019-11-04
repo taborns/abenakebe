@@ -18,7 +18,7 @@ export default class ImageJoke extends React.Component{
     }
 
     render() {
-        let news_count = this.props.news_count
+        let imageJoke_count = this.props.imageJoke_count
         const antIcon = <Icon  type="loading" style={{ fontSize: 54 }} spin />;
         console.log('newsloading', this.props)
         return (
@@ -32,12 +32,12 @@ export default class ImageJoke extends React.Component{
                             alignItems="center"
                             lg={10}
                             >
-                                <ImageCard imageJoke={joke} />
+                                <ImageCard type='image' imageJoke={joke} />
                             </Grid>)
                         ) || <Empty description='No Image jokes ' />}
                     </Spin>
 
-                <Pagination pageSize={5} onChange={this.handlePagination} defaultCurrent={1} total={news_count} />
+                <Pagination pageSize={10} onChange={this.handlePagination} defaultCurrent={1} total={imageJoke_count} />
                 </Box>
         
         )

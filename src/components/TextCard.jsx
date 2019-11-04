@@ -18,6 +18,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Paper, Divider } from '@material-ui/core';
 import Emoji from 'react-emoji-render';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import Api from '../api/api';
 
 let moment = require('moment')
 const useStyles = makeStyles(theme => ({
@@ -46,10 +47,16 @@ const useStyles = makeStyles(theme => ({
 export default function TextCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [likeCount, setLikeCount] = React.useState(props.textJoke.like_count);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  let performLike = () => {
+
+    Api.postData(`/like/text`, {
+      joke : props.textJoke.id
+    })
+    .then(response => setLikeCount(response.like_count))
+  
+  }
 
   return (
     <Card className={`my-card ${classes.card}`}>
@@ -74,10 +81,10 @@ export default function TextCard(props) {
       </CardContent>
       
       <CardActions className='my-actions' disableSpacing>
-        <IconButton className='floating-icon' aria-label="add to favorites">
+        <IconButton onClick={performLike} className='floating-icon' aria-label="add to favorites">
           <ThumbUpIcon />
         </IconButton>
-        22
+        <span className='like-counter'>{likeCount}</span>
         <IconButton className='floating-icon' aria-label="share">
           <ShareIcon />
         </IconButton>
