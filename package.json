@@ -17,7 +17,6 @@
     "react-share": "^3.0.1",
     "reactstrap": "^8.0.1"
   },
-  "homepage": "http://simplatecplc.com/abenakebe",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
