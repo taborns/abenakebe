@@ -47,14 +47,25 @@ const useStyles = makeStyles(theme => ({
 export default function TextCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [liked, setLiked] = React.useState(false);
   const [likeCount, setLikeCount] = React.useState(props.textJoke.like_count);
 
+  console.log("like count", likeCount)
   let performLike = () => {
 
-    Api.postData(`/like/text`, {
-      joke : props.textJoke.id
-    })
-    .then(response => setLikeCount(response.like_count))
+    if(!liked || liked) {
+      
+      setLikeCount( likeCount + 1 )
+
+      Api.postData(`/like/joke`, {
+        joke : props.textJoke.id
+      })
+      .then(response => {
+        setLikeCount(response.like_count) 
+        setLiked(true)
+      })
+  
+    }
   
   }
 
@@ -82,7 +93,7 @@ export default function TextCard(props) {
       
       <CardActions className='my-actions' disableSpacing>
         <IconButton onClick={performLike} className='floating-icon' aria-label="add to favorites">
-          <ThumbUpIcon />
+          <ThumbUpIcon  className={liked && 'my-liked'} />
         </IconButton>
         <span className='like-counter'>{likeCount}</span>
         <IconButton className='floating-icon' aria-label="share">

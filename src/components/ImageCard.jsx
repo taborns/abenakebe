@@ -52,30 +52,31 @@ const useStyles = makeStyles(theme => ({
 export default function ImageCard(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [liked, setLiked] = React.useState(false);
   const [likeCount, setLikeCount] = React.useState(props.imageJoke.like_count);
 
   const image_url = props.abs && `${Api.API_BASE_URL}${props.imageJoke.image}` || props.imageJoke.image
-  
+
   let performLike = () => {
 
-    Api.postData(`/like/${props.type}`, {
-      joke : props.imageJoke.id
-    })
-    .then(response => setLikeCount(response.like_count))
+    if(!liked || liked) {
+      setLikeCount( likeCount + 1 )
+      Api.postData(`/like/joke`, {
+        joke : props.imageJoke.id
+      })
+      .then(response => {
+        setLikeCount(response.like_count)
+        setLiked(true)
+      })
+
+    }
   
   }
 
 
   return (
     <Card className={`my-card ${classes.card}`}>
-      {/* <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}  src="/avatar.jpg" />
-        }
-        
-        title={props.imageJoke.caption}
-        // subheader={moment(props.news.created_at).format('DD.mm.YYYY hh:mm').toString()}
-      /> */}
+      
       <CardHeader
         className='my-card-header'
         avatar={
@@ -85,19 +86,12 @@ export default function ImageCard(props) {
                 // subheader={moment(props.news.created_at).format('DD.mm.YYYY hh:mm').toString()}
       />
       <Divider />
-      
-      {/* <CardMedia
-        className={classes.media}
-        image={props.imageJoke.image}
-        title={props.imageJoke.caption}
-      /> */}
 
-      
 
       <CardContent>
           <img className='joke-image' src={image_url} />
           <Typography className='image-caption' gutterBottom variant='h6' component="h2">
-           <Emoji text={props.imageJoke.caption} />
+           <Emoji text={props.imageJoke.title} />
           </Typography>
         </CardContent>
      
@@ -106,7 +100,7 @@ export default function ImageCard(props) {
       <CardActions className='my-actions' disableSpacing>
       <span className='share-like-button'>
       <IconButton onClick={performLike} aria-label="add to favorites">
-        <ThumbUpIcon />
+        <ThumbUpIcon className={liked && 'my-liked'}  />
       </IconButton>
       <span className='like-counter'>{likeCount}</span>
       </span>

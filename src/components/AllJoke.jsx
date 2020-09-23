@@ -4,54 +4,73 @@ import {Pagination, Spin, Icon, Empty} from 'antd'
 import ImageCard from './ImageCard';
 import React from 'react';
 import TextCard from './TextCard';
+import Api from '../api/api';
 
 
 export default class AllJoke extends React.Component{
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            jokes : [],
+            joke_count : 0,
+            joke_loading : false,
+        }
        
     }
 
     handlePagination = (page) => {
         
-        this.props.onAll(page)
+        this.retrieveJokes(page)
+    }
+
+    retrieveJokes = (page) => {
+
+        this.setState({
+            joke_loading : true
+        })
+        let joke_type = this.props.joke_type && `/${this.props.joke_type}` || ``
+        Api.getData(`jokes${joke_type}`, `?page=${page}`)
+            .then( response => {
+                this.setState({
+                    jokes : response.results,
+                    joke_count : response.count,
+                    joke_loading : false
+                })
+            }, err => {
+                this.setState({joke_loading : false, jokes : []})
+
+            })
+
+    }
+
+    componentDidMount() {
+        this.retrieveJokes(1)
     }
 
     render() {
-        let all_count = 0 
-        if ( this.props.imageJoke_count > all_count )
-            all_count = this.props.imageJoke_count
         
-        if ( this.props.textJoke_count > all_count ) 
-            all_count = this.props.textJoke_count
-        
-        if ( this.props.memeJoke_count > all_count) 
-            all_count = this.props.memeJoke_count
-        
-        console.log('allcount', all_count)
 
         const antIcon = <Icon  type="loading" style={{ fontSize: 54 }} spin />;
-        console.log('newsloading', this.props)
         return (
             <Box>
-                    <Spin  indicator={antIcon} spinning={this.props.imageJoke_loading || this.props.textJoke_loading || this.props.memeJoke_loading}>
+                    <Spin  indicator={antIcon} spinning={this.state.joke_loading}>
 
-                        { this.props.allJokes.length > 0 && this.props.allJokes.map( joke => (<Grid
+                        { this.state.jokes.length > 0 && this.state.jokes.map( joke => (<Grid
                             item
                             direction="row"
                             justify="center"
                             alignItems="center"
                             lg={10}
-                            >
-                             
-                        { joke.type =='image' && <ImageCard type='image' imageJoke={joke} /> || joke.type=='meme' && <ImageCard  type='meme' imageJoke={joke} /> || joke.type =='text' && <TextCard textJoke={joke} />  }
+                            > 
+                        { (joke.joke_type =='image' && <ImageCard type='image' imageJoke={joke} />) || (joke.joke_type=='meme' && <ImageCard  type='meme' imageJoke={joke} /> )|| (joke.joke_type =='text' && <TextCard textJoke={joke} />)  }
                              
                             </Grid>)
                         ) || <Empty description='No Image jokes ' />}
                     </Spin>
 
-                <Pagination pageSize={10} onChange={this.handlePagination} defaultCurrent={1} total={all_count} />
+                <Pagination pageSize={10} onChange={this.handlePagination} defaultCurrent={1} total={this.state.joke_count} />
                 </Box>
         
         )

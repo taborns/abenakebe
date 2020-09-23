@@ -5,8 +5,8 @@
  
  // let API_BASE_URL = 'https://vere-api.herokuapp.com/api/';
  // let API_BASE_URL = "http://173.249.18.184:7878/api/";
-let API_BASE_URL = "http://localhost:8000"
- //let API_BASE_URL = "http://157.245.14.8:7001";
+//let API_BASE_URL = "http://localhost:8000"
+ let API_BASE_URL = "http://104.248.163.118:8002";
  // let API_BASE_URL = "http://192.168.1.153:7878/api/";
  // let API_BASE_URL = "http://192.168.1.106:7878/api/";
 

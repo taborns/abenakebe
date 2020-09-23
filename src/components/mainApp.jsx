@@ -95,14 +95,19 @@ export default function MainApp(props) {
         </TabPanel>
 
         <TabPanel value={value} index={1} dir={theme.direction}>
-        `<TextJoke {...props} />
+        {/* `<TextJoke {...props} /> */}
+          <AllJoke joke_type='text' {...props} />
+
         </TabPanel>
 
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <ImageJoke {...props} />
+          <AllJoke joke_type='image' {...props} />
+          {/* <ImageJoke {...props} /> */}
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-          <MemeJoke {...props} />
+          {/* <MemeJoke {...props} /> */}
+          <AllJoke joke_type='meme' {...props} />
+
         </TabPanel>
 
 

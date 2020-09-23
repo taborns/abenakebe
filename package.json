@@ -11,11 +11,13 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-emoji-render": "^1.0.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.2.0",
     "react-share": "^3.0.1",
     "reactstrap": "^8.0.1"
   },
-  "homepage": "http://localhost/build/",
+  "homepage": "http://simplatecplc.com/abenakebe",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

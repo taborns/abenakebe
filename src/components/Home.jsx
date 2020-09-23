@@ -7,6 +7,12 @@ import Menu from 'rc-menu';
 import MyMenu from './MyMenu';
 
 import moment from 'moment' 
+import MyFooter from './MyFooter';
+import Profile from './Profile';
+import {
+    Switch,
+    Route,
+  } from "react-router-dom";
 
 export default class Home extends React.Component {
 
@@ -16,6 +22,10 @@ export default class Home extends React.Component {
 
         this.state = {
             
+            jokes : [],
+            joke_count : 0,
+            joke_loading : false,
+
             imageJokes : [],
             imageJoke_count : 0,
             imageJoke_loading : false,
@@ -35,6 +45,25 @@ export default class Home extends React.Component {
             current : 1,
 
         }
+
+    }
+    retrieveJokes = (page) => {
+
+        this.setState({
+            joke_loading : true
+        })
+
+        Api.getData(`jokes`, `?page=${page}`)
+            .then( response => {
+                this.setState({
+                    jokes : response.results,
+                    joke_count : response.count,
+                    joke_loading : false
+                })
+            }, err => {
+                this.setState({joke_loading : false, jokes : []})
+
+            })
 
     }
 
@@ -113,19 +142,19 @@ export default class Home extends React.Component {
     sortAllJokes = () => {
         let all_jokes = []
 
-        this.state.imageJokes.forEach( joke => {
-            joke.type = 'image'
-            all_jokes.push( joke )
+        this.state.imageJokes.forEach( image_joke => {
+            image_joke.type = 'image'
+            all_jokes.push( image_joke )
         })
 
-        this.state.memeJokes.forEach( joke => {
-            joke.type = 'meme'
-            all_jokes.push( joke )
+        this.state.memeJokes.forEach( meme_joke => {
+            meme_joke.type = 'meme'
+            all_jokes.push( meme_joke )
         })
 
-        this.state.textJokes.forEach( joke => {
-            joke.type = 'text'
-            all_jokes.push( joke )
+        this.state.textJokes.forEach( text_joke => {
+            text_joke.type = 'text'
+            all_jokes.push( text_joke )
         })
 
 
@@ -144,7 +173,8 @@ export default class Home extends React.Component {
         this.retrieveImageJoke(page)
         this.retrieveMemeJokes(page)
         this.retrieveTextJokes(page)
-        this.retrieveAllJokes(page)
+        this.retrieveJokes(page)
+        //this.retrieveAllJokes(page)
     }
 
     componentDidMount() {
@@ -156,17 +186,27 @@ export default class Home extends React.Component {
         return (
             <div>
             <MyMenu />
-            <MainApp 
-                {...this.state}
-                onRetrieveImageJokes = {this.retrieveImageJoke}
-                onRetrieveMemeJokes = {this.retrieveMemeJokes}
-                onRetrieveTextJokes = {this.retrieveTextJokes}
-                onRetrieveAllJokes = {this.retrieveAllJokes}
-                onAll = {this.retrieveAll}
-            />
-            <BackTop>
+
+            <Switch>
+            <Route path="/profile">
+             <Profile />
+            </Route>
+            <Route path="/">
+                <MainApp 
+                    {...this.state}
+                    onRetrieveJokes = {this.retrieveJokes}
+                    onRetrieveImageJokes = {this.retrieveImageJoke}
+                    onRetrieveMemeJokes = {this.retrieveMemeJokes}
+                    onRetrieveTextJokes = {this.retrieveTextJokes}
+                    onRetrieveAllJokes = {this.retrieveAllJokes}
+                    onAll = {this.retrieveAll}
+                />
+            </Route>
+            {/* <BackTop>
                 <Icon className='back-to-top' type="up-circle" theme="filled" />
-            </BackTop>
+            </BackTop> */}
+            </Switch>
+            <MyFooter />
             </div>
         )
     }
